@@ -15,7 +15,7 @@ public class LessonStorage {
         lessons = new Lesson[16];
     }
 
-    public void Add(Lesson lesson) {
+    public void add(Lesson lesson) {
         if (size == lessons.length) {
             extend();
         }
@@ -43,5 +43,16 @@ public class LessonStorage {
         return null;
     }
 
+    public void searchLessonByName(String name) {
+        boolean isFind = false;
+        for (int i = 0; i < size; i++) {
+            if (lessons[i].getName().contains(name))
+                isFind = true;
+            System.out.println(lessons[i]);
+        }
+        if (!isFind) {
+            System.out.println("nman Lesson chka");
+        }
+    }
 }
 

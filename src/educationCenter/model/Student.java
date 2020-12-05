@@ -84,7 +84,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "librabry.Student{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
