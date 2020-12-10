@@ -1,17 +1,18 @@
 package educationCenter;
 
-import educationCenter.model.Lesson;
+import educationCenter.model.Post;
 import educationCenter.model.Student;
 import educationCenter.storage.LessonStorage;
 import educationCenter.storage.StudentStorage;
 
 import java.util.Scanner;
 
-public class EducationCenter {
+public class EducationCenter implements Commands {
 
     private static LessonStorage lessonStorage = new LessonStorage();
     private static StudentStorage studentStorage = new StudentStorage();
     private static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
 
         boolean isRun = true;
@@ -19,34 +20,34 @@ public class EducationCenter {
             numberCommands();
             String commands = scanner.nextLine();
             switch (commands) {
-                case "0":
+                case EXIT:
                     isRun = false;
                     break;
-                case "1":
+                case ADD_STUDENT:
                     addStudent();
                     break;
-                case "2":
+                case ADD_LESSON:
                     addLesson();
                     break;
-                case "3":
-                    printAllStudend();
+                case PRINT_STUDENTS:
+                    printAllStudent();
                     break;
-                case "4":
+                case PRINT_LESSONS:
                     printAllLesson();
                     break;
-                case "5":
+                case SEARCH_STUDENT_BY_NAME:
                     searchStudenByName();
                     break;
-                case "6":
+                case SEARCH_LESSON_BY_NAME:
                     searchLessonByName();
                     break;
-                case "7":
+                case SEARCH_STUDENTS_BY_LESSON_NAME:
                     searchStudentByLessonName();
                     break;
-                case "8":
+                case CHANGE_STUDENT_LESSON:
                     changeLessonByStudentEmail();
                     break;
-                case "9":
+                case CHANGE_STUDENT_PHONE:
                     changeStudentByPhone();
                     break;
                 default:
@@ -61,10 +62,9 @@ public class EducationCenter {
         System.out.println("greq popoxvaxi Studeni emaile");
         String getStudentEmail = scanner.nextLine();
         Student studentEmail = studentStorage.getStudentEmail(getStudentEmail);
-        if(studentEmail==null){
+        if (studentEmail == null) {
             System.out.println("nman emailov student chka");
-        }
-        else {
+        } else {
             System.out.println("nermuceq studenti nor tvyalner@------name,surname,phone,email");
             String studentInfo = scanner.nextLine();
             String[] splitStudentInfo = studentInfo.split(",");
@@ -80,46 +80,44 @@ public class EducationCenter {
         System.out.println("greq Lessoni tvyalnere");
         String studentEmail = scanner.nextLine();
         Student backEmail = studentStorage.findStudentEmail(studentEmail);
-        if (backEmail == null) {
-            System.out.println("nman usanox chka");
-        } else {
-            System.out.println("nermuceq------name,duration,price,lecturename");
-            String newLessonInfo = scanner.nextLine();
-            String[] splitLessonName = newLessonInfo.split(",");
-            backEmail.getLesson().setName(splitLessonName[0]);
-            backEmail.getLesson().setDuration(Integer.parseInt(splitLessonName[1]));
-            backEmail.getLesson().setPrice(Double.parseDouble(splitLessonName[2]));
-            backEmail.getLesson().setLecturerName(splitLessonName[3]);
-            System.out.println(backEmail);
-
-        }
+        System.out.println("nermuceq------name,duration,price,lecturename");
+        String newLessonInfo = scanner.nextLine();
+        String[] splitLessonName = newLessonInfo.split(",");
+        backEmail.getLesson().setName(splitLessonName[0]);
+        backEmail.getLesson().setDuration(Integer.parseInt(splitLessonName[1]));
+        backEmail.getLesson().setPrice(Double.parseDouble(splitLessonName[2]));
+        backEmail.getLesson().setLecturerName(splitLessonName[3]);
+        System.out.println(backEmail);
     }
 
     private static void searchStudentByLessonName() {
+        System.out.println("nermuceq studenti lessone");
         String studenNameByLesson = scanner.nextLine();
         studentStorage.searchStudentbyLessonName(studenNameByLesson);
 
     }
 
     private static void searchLessonByName() {
+        System.out.println("nermuceq Lessone pntrelu hamar");
         String lessonName = scanner.nextLine();
         lessonStorage.searchLessonByName(lessonName);
     }
 
     private static void numberCommands() {
-        System.out.println("EXIT = 0");
-        System.out.println("ADD_STUDENT = 1");
-        System.out.println("ADD_LESSON = 2");
-        System.out.println("PRINT_STUDENTS = 3");
-        System.out.println("PRINT_LESSONS = 4");
-        System.out.println("SEARCH_STUDENT_BY_NAME=5");
-        System.out.println("SEARCH_LESSON_BY_NAME=6");
-        System.out.println("SEARCH_STUDENTS_BY_LESSON_NAME=7");
-        System.out.println("CHANGE_STUDENT_LESSON=8");
-        System.out.println("CHANGE_STUDENT_PHONE=9");
+        System.out.println("EXIT " + EXIT);
+        System.out.println("ADD_STUDENT =" + ADD_STUDENT);
+        System.out.println("ADD_LESSON =" + ADD_LESSON);
+        System.out.println("PRINT_STUDENTS =" + PRINT_STUDENTS);
+        System.out.println("PRINT_LESSONS =" + PRINT_LESSONS);
+        System.out.println("SEARCH_STUDENT_BY_NAME =" + SEARCH_STUDENT_BY_NAME);
+        System.out.println("SEARCH_LESSON_BY_NAME =" + SEARCH_LESSON_BY_NAME);
+        System.out.println("SEARCH_STUDENTS_BY_LESSON_NAME =" + SEARCH_STUDENTS_BY_LESSON_NAME);
+        System.out.println("CHANGE_STUDENT_LESSON =" + CHANGE_STUDENT_LESSON);
+        System.out.println("CHANGE_STUDENT_PHONE =" + CHANGE_STUDENT_PHONE);
     }
 
     private static void searchStudenByName() {
+        System.out.println("Input serach student name");
         String studentName = scanner.nextLine();
         studentStorage.searchStudent(studentName);
     }
@@ -128,40 +126,50 @@ public class EducationCenter {
         lessonStorage.printAll();
     }
 
-    private static void printAllStudend() {
+    private static void printAllStudent() {
         studentStorage.printAll();
     }
 
     private static void addLesson() {
         System.out.println("nermuceq Lessoni tvyalner@ ------name,duration,price,lecturenAme");
-        String lessonInfo = scanner.nextLine();
-        String[] splitLesson = lessonInfo.split(",");
-        Lesson lesson = new Lesson();
-        lesson.setName(splitLesson[0]);
-        lesson.setDuration(Integer.parseInt(splitLesson[1]));
-        lesson.setPrice(Double.parseDouble(splitLesson[2]));
-        lesson.setLecturerName(splitLesson[3]);
-        lessonStorage.add(lesson);
+        try {
+            String lessonInfo = scanner.nextLine();
+            String[] splitLesson = lessonInfo.split(",");
+            Post lesson = new Post();
+            lesson.setName(splitLesson[0]);
+            lesson.setDuration(Integer.parseInt(splitLesson[1]));
+            lesson.setPrice(Double.parseDouble(splitLesson[2]));
+            lesson.setLecturerName(splitLesson[3]);
+            lessonStorage.add(lesson);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private static void addStudent() {
         System.out.println("please write lesson name");
-        String lessonName = scanner.nextLine();
-        Lesson lessonByName = lessonStorage.getLessonByName(lessonName);
-        if (lessonByName != null) {
-            System.out.println("write student info------ name,surname,phone,email");
-            String studenInfo = scanner.nextLine();
-            String[] splitStudent = studenInfo.split(",");
-            Student student = new Student();
-            student.setName(splitStudent[0]);
-            student.setSurname(splitStudent[1]);
-            student.setPhone(splitStudent[2]);
-            student.setEmail(splitStudent[3]);
-            student.setLesson(lessonByName);
-            studentStorage.add(student);
-            studentStorage.printAll();
-        } else {
-            System.out.println("nman Lesson chka");
+        try {
+            String lessonName = scanner.nextLine();
+            Post lessonByName = lessonStorage.getLessonByName(lessonName);
+            if (lessonByName != null) {
+                System.out.println("write student info------ name,surname,phone,email");
+                String studenInfo = scanner.nextLine();
+                String[] splitStudent = studenInfo.split(",");
+                Student student = new Student();
+                student.setName(splitStudent[0]);
+                student.setSurname(splitStudent[1]);
+                student.setPhone(splitStudent[2]);
+                student.setEmail(splitStudent[3]);
+                student.setLesson(lessonByName);
+                studentStorage.add(student);
+                studentStorage.printAll();
+            } else {
+                System.out.println("nman Lesson chka");
+            }
+        }catch (ArrayIndexOutOfBoundsException | NumberFormatException e){
+            System.err.println(e.getMessage());
         }
     }
+
+
 }

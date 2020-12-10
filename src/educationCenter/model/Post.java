@@ -1,20 +1,20 @@
 package educationCenter.model;
 
-public class Lesson {
+public class Post {
 
     private String name;
     private int duration;
     private double price;
     private String lecturerName;
 
-    public Lesson(String name, int duration, double price, String lecturerName) {
+    public Post(String name, int duration, double price, String lecturerName) {
         this.name = name;
         this.duration = duration;
         this.price = price;
         this.lecturerName = lecturerName;
     }
 
-    public Lesson() {
+    public Post() {
     }
 
     public String getName() {
@@ -54,7 +54,7 @@ public class Lesson {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Lesson lesson = (Lesson) o;
+        Post lesson = (Post) o;
 
         if (duration != lesson.duration) return false;
         if (Double.compare(lesson.price, price) != 0) return false;

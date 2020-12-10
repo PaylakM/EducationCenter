@@ -1,21 +1,21 @@
 package educationCenter.storage;
 
-import educationCenter.model.Lesson;
+import educationCenter.model.Post;
 
 public class LessonStorage {
 
-    private Lesson[] lessons;
+    private Post[] lessons;
     private int size;
 
     public LessonStorage(int capacity) {
-        lessons = new Lesson[capacity];
+        lessons = new Post[capacity];
     }
 
     public LessonStorage() {
-        lessons = new Lesson[16];
+        lessons = new Post[16];
     }
 
-    public void add(Lesson lesson) {
+    public void add(Post lesson) {
         if (size == lessons.length) {
             extend();
         }
@@ -23,7 +23,7 @@ public class LessonStorage {
     }
 
     private void extend() {
-        Lesson[] tmp = new Lesson[lessons.length + 16];
+        Post[] tmp = new Post[lessons.length + 16];
         System.arraycopy(lessons, 0, tmp, 0, lessons.length);
         lessons = tmp;
     }
@@ -34,7 +34,7 @@ public class LessonStorage {
         }
     }
 
-    public Lesson getLessonByName(String name) {
+    public Post getLessonByName(String name) {
         for (int i = 0; i < size; i++) {
             if (lessons[i].getName().equals(name)) {
                 return lessons[i];

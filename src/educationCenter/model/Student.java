@@ -5,9 +5,9 @@ public class Student {
     private String surname;
     private String phone;
     private String email;
-    private Lesson lesson;
+    private Post lesson;
 
-    public Student(String name, String surname, String phone, String email, Lesson lesson) {
+    public Student(String name, String surname, String phone, String email, Post lesson) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
@@ -50,11 +50,11 @@ public class Student {
         this.email = email;
     }
 
-    public Lesson getLesson() {
+    public Post getLesson() {
         return lesson;
     }
 
-    public void setLesson(Lesson lesson) {
+    public void setLesson(Post lesson) {
         this.lesson = lesson;
     }
 

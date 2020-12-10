@@ -1,5 +1,6 @@
 package educationCenter.storage;
 
+import educationCenter.exception.StudentNotFoundException;
 import educationCenter.model.Student;
 
 import java.security.PublicKey;
@@ -70,7 +71,7 @@ public class StudentStorage {
                 }
             }
         }
-        return null;
+        throw new StudentNotFoundException("nman usanox chka [" + email + "]");
     }
 
     public Student getStudentEmail(String email) {
