@@ -8,4 +8,6 @@ public interface Commands {
     int POSTS_BY_CATEGORY=3;
     int ALL_POSTS=4;
     int SEARCH_BY_KEYWORD=5;
+    int LOGOUT=6;
+
 }
